@@ -9,11 +9,13 @@ export default class CreateTaskModal extends React.Component {
     this.state = {
       title: "",
       body: "",
+      to_do_day: "",
       is_urgent: false,
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.toggleUrgentCheck = this.toggleUrgentCheck.bind(this);
+    this.handleDaySelect = this.handleDaySelect.bind(this);
   }
 
   handleTitleChange(event) {
@@ -24,13 +26,17 @@ export default class CreateTaskModal extends React.Component {
     this.setState({ body: event.target.value });
   }
 
+  handleDaySelect(event) {
+    this.setState({ to_do_day: event.target.value });
+  }
+
   toggleUrgentCheck(event) {
     this.setState({ is_urgent: event.target.checked });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-
+    console.log("posting new task");
     // POST REQUEST
     fetch("https://itp404-final-server.herokuapp.com/api/tasks", {
       method: "POST",
@@ -41,6 +47,7 @@ export default class CreateTaskModal extends React.Component {
         is_bookmarked: this.state.is_urgent,
         // referenced for getting timestamp: https://hdtuto.com/article/react-js-get-current-date-and-time-example
         time_bookmarked: this.state.is_urgent ? Date().toLocaleString() : "",
+        to_do_day: this.state.to_do_day,
       }),
       headers: {
         // telling it that we're sending JSON in this request
@@ -83,6 +90,7 @@ export default class CreateTaskModal extends React.Component {
             <div className="modal-body">
               <form
                 onSubmit={(event) => {
+                  console.log("going to submit form");
                   this.handleSubmit(event);
                 }}
               >
@@ -110,6 +118,26 @@ export default class CreateTaskModal extends React.Component {
                     }}
                   ></textarea>
                 </div>
+                <div className="mb-3 mt-3">
+                  <label className="form-label" htmlFor="day_select">
+                    Do this task on:
+                  </label>
+                  <select
+                    className="form-select"
+                    id="day_select"
+                    value={this.state.to_do_day}
+                    onChange={this.handleDaySelect}
+                  >
+                    <option>--Select a Day--</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                  </select>
+                </div>
                 <div className="form-check mb-3">
                   <input
                     type="checkbox"
@@ -123,7 +151,14 @@ export default class CreateTaskModal extends React.Component {
               </form>
             </div>
             <div className="modal-footer">
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                onClick={(event) => {
+                  console.log("submit button clicked");
+                  this.handleSubmit(event);
+                }}
+              >
                 Create Task
               </button>
               <button
