@@ -11,13 +11,15 @@ import "./styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import Modal from "./Modal";
 
 export default class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       numTasksDone: 0,
+      isModalOpen: false,
     };
   }
 
@@ -72,7 +74,37 @@ export default class App extends React.Component {
             );
           }}
         />
-        <button>New Post</button>
+
+        {/* add new task form (modal popup) */}
+        <button
+          type="button"
+          onClick={() => {
+            this.setState({ isModalOpen: true });
+            console.log("modal should be open");
+          }}
+        >
+          Open Modal
+        </button>
+        {this.state.isModalOpen && (
+          <Modal
+            title="Florence's title"
+            // function as a prop = render prop
+            body={() => {
+              return (
+                <div>
+                  <p>Modal body text goes here </p>
+                  <p>More html inside the body function </p>
+                </div>
+              );
+            }}
+            // pass closeModal function in so that buttons in Modal.js can call this function to close/hide the modal
+            // control rendering thru react instead of html javascript
+            onCloseModal={() => {
+              this.setState({ isModalOpen: false });
+              console.log("modal should be closed");
+            }}
+          />
+        )}
       </div>
     );
   }

@@ -12,3 +12,8 @@
   background-color: #ffffffc5;
   color: gray;
 }
+
+.modal {
+  /* overwrite default, have react render it */
+  display: block !important;
+}
