@@ -24,28 +24,20 @@ export default function Navigation() {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink
+                exact
+                to={`/tomorrow/${new Date().getDay()}`}
+                className="nav-link"
+              >
+                Tomorrow's Tasks
+              </NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink exact to={`/urgent/`} className="nav-link">
                 Urgent Tasks
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink exact to="/about" className="nav-link">
-                About
-              </NavLink>
-            </li>
           </ul>
-          {/* {!isLoading && (
-            <div className="d-flex">
-              {isAuthenticated ? (
-                <LogoutButton />
-              ) : (
-                <>
-                  <LoginButton />
-                  <SignUpButton />
-                </>
-              )}
-            </div>
-          )} */}
         </div>
       </div>
     </nav>

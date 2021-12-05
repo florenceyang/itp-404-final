@@ -4,28 +4,52 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./styles.css";
 import TaskGroup from "./TaskGroup";
 
-export default class UrgentTasks extends React.Component {
+export default class Tomorrow extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isModalOpen: false,
-      bookmark_filter: "",
+      day_index: 0,
     };
   }
 
   componentDidMount() {
+    // shift days array to reflect "tomorrow" days according to index
+    const tomorrow_days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+
     this.setState({
       // grab the current day from the url parameter
-      bookmark_filter: this.props.match.params.filter,
+      day_index: this.props.match.params.current_day,
     });
-    document.title = "Urgent Tasks!";
+
+    document.title = `Tomorrow's tasks (${
+      tomorrow_days[this.state.day_index]
+    })`;
   }
 
   render() {
+    // shift days array to reflect "tomorrow" days according to index
+    const tomorrow_days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
     return (
       <div>
-        <h1>URGENT TASKS VIEW</h1>
+        <h1>HELLLO TOMMOROW'S VIEW</h1>
         {/* add new task form (modal popup) */}
         <button
           type="button"
@@ -43,6 +67,7 @@ export default class UrgentTasks extends React.Component {
             // control rendering thru react instead of html javascript
             onCloseModal={() => {
               this.setState({ isModalOpen: false });
+
               // refresh code referenced: https://upmostly.com/tutorials/how-to-refresh-a-page-or-component-in-react
               window.location.reload(false); // refresh to see new API updates
             }}
@@ -50,8 +75,10 @@ export default class UrgentTasks extends React.Component {
         )}
 
         {/* ONLY SHOW 1 DAY'S (TODAY'S) TASKS */}
-        <h1 className="header_day">Urgent Tasks</h1>
-        <TaskGroup filter="is_bookmarked=true" />
+        <h1 className="header_day">{tomorrow_days[this.state.day_index]}</h1>
+        <TaskGroup
+          filter={"to_do_day=" + tomorrow_days[this.state.day_index]}
+        />
       </div>
     );
   }
