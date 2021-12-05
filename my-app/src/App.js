@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Today from "./Today";
 import UrgentTasks from "./UrgentTasks";
 import Tomorrow from "./Tomorrow";
+import Error404 from "./Error404";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -29,10 +30,13 @@ export default class App extends React.Component {
 
           <div className="mt-3">
             <Switch>
-              <Route path="/today/:current_day" component={Today} />
-              <Route path="/tomorrow/:current_day" component={Tomorrow} />
-              <Route path="/urgent" component={UrgentTasks} />
-              <Route path="/" component={Home} />
+              <Route exact path="/today/:current_day" component={Today} />
+              <Route exact path="/tomorrow/:current_day" component={Tomorrow} />
+              <Route exact path="/urgent" component={UrgentTasks} />
+              <Route exact path="/" component={Home} />
+              {/* catch all for routes that don't exist --> 404 error */}
+              {/* referenced: https://v5.reactrouter.com/web/example/no-match*/}
+              <Route path="/*" component={Error404} />
             </Switch>
           </div>
           <ToastContainer />
