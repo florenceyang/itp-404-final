@@ -11,6 +11,7 @@ export default class CreateTaskModal extends React.Component {
       body: "",
       to_do_day: "",
       is_urgent: false,
+      task_created: false,
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -61,8 +62,8 @@ export default class CreateTaskModal extends React.Component {
       .then((json) => {
         console.log(json);
         toast.success(`Task "${json.title} was successfully created`);
-        // close modal to go back to home page
-        this.props.onCloseModal();
+        // show a success view in modal (so that toast has time to display rather than closing out modal automatically)
+        this.setState({ task_created: true });
       });
   }
 
@@ -88,86 +89,102 @@ export default class CreateTaskModal extends React.Component {
               ></button>
             </div>
             <div className="modal-body">
-              <form
-                onSubmit={(event) => {
-                  console.log("going to submit form");
-                  this.handleSubmit(event);
-                }}
-              >
-                <div className="my-3">
-                  <label htmlFor="title" className="form-label">
-                    Task Title
-                  </label>
-                  <input
-                    id="title"
-                    className="form-control"
-                    value={this.state.title}
-                    onChange={this.handleTitleChange}
-                  />
-                </div>
-                <div className="my-3">
-                  <label htmlFor="body" className="form-label">
-                    Task Description
-                  </label>
-                  <textarea
-                    id="body"
-                    className="form-control"
-                    value={this.state.body}
-                    onChange={(event) => {
-                      this.handleBodyChange(event);
-                    }}
-                  ></textarea>
-                </div>
-                <div className="mb-3 mt-3">
-                  <label className="form-label" htmlFor="day_select">
-                    Do this task on:
-                  </label>
-                  <select
-                    className="form-select"
-                    id="day_select"
-                    value={this.state.to_do_day}
-                    onChange={this.handleDaySelect}
-                  >
-                    <option>--Select a Day--</option>
-                    <option>Monday</option>
-                    <option>Tuesday</option>
-                    <option>Wednesday</option>
-                    <option>Thursday</option>
-                    <option>Friday</option>
-                    <option>Saturday</option>
-                    <option>Sunday</option>
-                  </select>
-                </div>
-                <div className="form-check mb-3">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="urgent-check"
-                    checked={this.state.is_urgent}
-                    onChange={this.toggleUrgentCheck}
-                  />
-                  <label htmlFor="urgent-check">This is urgent!!</label>
-                </div>
-              </form>
+              {!this.state.task_created ? (
+                <form
+                  onSubmit={(event) => {
+                    console.log("going to submit form");
+                    this.handleSubmit(event);
+                  }}
+                >
+                  <div className="my-3">
+                    <label htmlFor="title" className="form-label">
+                      Task Title
+                    </label>
+                    <input
+                      id="title"
+                      className="form-control"
+                      value={this.state.title}
+                      onChange={this.handleTitleChange}
+                    />
+                  </div>
+                  <div className="my-3">
+                    <label htmlFor="body" className="form-label">
+                      Task Description
+                    </label>
+                    <textarea
+                      id="body"
+                      className="form-control"
+                      value={this.state.body}
+                      onChange={(event) => {
+                        this.handleBodyChange(event);
+                      }}
+                    ></textarea>
+                  </div>
+                  <div className="mb-3 mt-3">
+                    <label className="form-label" htmlFor="day_select">
+                      Do this task on:
+                    </label>
+                    <select
+                      className="form-select"
+                      id="day_select"
+                      value={this.state.to_do_day}
+                      onChange={this.handleDaySelect}
+                    >
+                      <option>--Select a Day--</option>
+                      <option>Monday</option>
+                      <option>Tuesday</option>
+                      <option>Wednesday</option>
+                      <option>Thursday</option>
+                      <option>Friday</option>
+                      <option>Saturday</option>
+                      <option>Sunday</option>
+                    </select>
+                  </div>
+                  <div className="form-check mb-3">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id="urgent-check"
+                      checked={this.state.is_urgent}
+                      onChange={this.toggleUrgentCheck}
+                    />
+                    <label htmlFor="urgent-check">This is urgent!!</label>
+                  </div>
+                </form>
+              ) : (
+                <div>Yay! Your task was created :)</div>
+              )}
             </div>
             <div className="modal-footer">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                onClick={(event) => {
-                  console.log("submit button clicked");
-                  this.handleSubmit(event);
-                }}
-              >
-                Create Task
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={this.props.onCloseModal}
-              >
-                Cancel
-              </button>
+              {!this.state.task_created ? (
+                <>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={(event) => {
+                      console.log("submit button clicked");
+                      this.handleSubmit(event);
+                    }}
+                  >
+                    Create Task
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={this.props.onCloseModal}
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={this.props.onCloseModal}
+                >
+                  Exit
+                </button>
+              )}
             </div>
           </div>
         </div>

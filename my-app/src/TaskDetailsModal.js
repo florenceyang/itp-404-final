@@ -12,6 +12,8 @@ export default class TaskDetailsModal extends React.Component {
       to_do_day: "",
       is_urgent: false,
       is_editing: false,
+      is_deleted: false,
+      time_bookmarked: "",
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -26,6 +28,7 @@ export default class TaskDetailsModal extends React.Component {
       body: this.props.task.body,
       to_do_day: this.props.task.to_do_day,
       is_urgent: this.props.task.is_bookmarked,
+      time_bookmarked: this.props.task.time_bookmarked,
     });
   }
 
@@ -68,7 +71,7 @@ export default class TaskDetailsModal extends React.Component {
       .then((json) => {
         console.log(json);
         toast.success(`Task "${json.title} was successfully updated`);
-        // close modal to go back to home page
+        // go back to details view
         this.setState({ is_editing: false });
       });
   }
@@ -89,7 +92,8 @@ export default class TaskDetailsModal extends React.Component {
       method: "DELETE",
     }).then(() => {
       toast.success(`Task "${this.props.task.title}" was deleted`);
-      this.props.onCloseModal();
+      // show delete confirmation view
+      this.setState({ is_deleted: true, is_editing: false });
     });
   }
 
@@ -179,10 +183,19 @@ export default class TaskDetailsModal extends React.Component {
                 </form>
               ) : (
                 <div>
-                  <p>Do this task on: {this.state.to_do_day}</p>
-                  <p>Urgent: {this.state.is_bookmarked ? "yes" : "no"} </p>
-                  <p>Made Urgent on: {this.state.time_bookmarked}</p>
-                  <p>Task Description: {this.state.body} </p>
+                  {this.state.is_deleted ? (
+                    <div>
+                      The task has been deleted. Nice job, another one of the
+                      list!
+                    </div>
+                  ) : (
+                    <>
+                      <p>Do this task on: {this.state.to_do_day}</p>
+                      <p>Urgent: {this.state.is_urgent ? "yes" : "no"} </p>
+                      <p>Made Urgent on: {this.state.time_bookmarked}</p>
+                      <p>Task Description: {this.state.body} </p>
+                    </>
+                  )}
                 </div>
               )}
             </div>
@@ -210,24 +223,30 @@ export default class TaskDetailsModal extends React.Component {
                 </>
               ) : (
                 <>
-                  <button
-                    type="button"
-                    className="btn btn-warning"
-                    onClick={() => {
-                      this.setState({ is_editing: true });
-                    }}
-                  >
-                    Edit Task
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={() => {
-                      this.deleteTask();
-                    }}
-                  >
-                    Delete Task
-                  </button>
+                  {this.state.is_deleted ? (
+                    ""
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        className="btn btn-warning"
+                        onClick={() => {
+                          this.setState({ is_editing: true });
+                        }}
+                      >
+                        Edit Task
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => {
+                          this.deleteTask();
+                        }}
+                      >
+                        Delete Task
+                      </button>
+                    </>
+                  )}
                   <button
                     type="button"
                     className="btn btn-secondary"

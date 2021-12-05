@@ -3,6 +3,7 @@ import CreateTaskModal from "./CreateTaskModal";
 import "bootstrap/dist/css/bootstrap.css";
 import "./styles.css";
 import TaskGroup from "./TaskGroup";
+import { toast } from "react-toastify"; // use for notifications
 
 export default class Today extends React.Component {
   constructor(props) {
@@ -49,10 +50,17 @@ export default class Today extends React.Component {
             title="Add a New Task"
             // pass closeModal function in so that buttons in Modal.js can call this function to close/hide the modal
             // control rendering thru react instead of html javascript
-            onCloseModal={() => {
+            onCloseModal={(is_toast_success, toast_message) => {
               this.setState({ isModalOpen: false });
+              console.log("toast boolean: ", is_toast_success);
+              console.log("toast string: ", toast_message);
               // refresh code referenced: https://upmostly.com/tutorials/how-to-refresh-a-page-or-component-in-react
               window.location.reload(false); // refresh to see new API updates
+              console.log("toast boolean: ", is_toast_success);
+              console.log("toast string: ", toast_message);
+              if (is_toast_success) {
+                toast.success(toast_message);
+              }
             }}
           />
         )}

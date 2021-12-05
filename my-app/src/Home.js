@@ -40,7 +40,7 @@ export default class Home extends React.Component {
             }}
             // pass closeModal function in so that buttons in Modal.js can call this function to close/hide the modal
             // control rendering thru react instead of html javascript
-            onCloseModal={() => {
+            onCloseModal={(is_toast_success, toast_message) => {
               this.setState({ isModalOpen: false });
               // refresh code referenced: https://upmostly.com/tutorials/how-to-refresh-a-page-or-component-in-react
               window.location.reload(false); // refresh to see new API updates
