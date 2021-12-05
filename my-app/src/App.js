@@ -11,7 +11,7 @@ import "./styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import Modal from "./Modal";
+import CreateTaskModal from "./CreateTaskModal";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -83,11 +83,11 @@ export default class App extends React.Component {
             console.log("modal should be open");
           }}
         >
-          Open Modal
+          New Post
         </button>
         {this.state.isModalOpen && (
-          <Modal
-            title="Florence's title"
+          <CreateTaskModal
+            title="Add a New Task"
             // function as a prop = render prop
             body={() => {
               return (
