@@ -31,3 +31,8 @@
 .header_day {
   font-weight: bold;
 }
+
+a.active {
+  text-decoration: underline;
+  background-color: #eee;
+}

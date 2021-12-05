@@ -1,21 +1,38 @@
 import React from "react";
 import CreateTaskModal from "./CreateTaskModal";
-import WeeklyAgenda from "./WeeklyAgenda";
 import "bootstrap/dist/css/bootstrap.css";
 import "./styles.css";
+import TaskGroup from "./TaskGroup";
 
-export default class Home extends React.Component {
+export default class Today extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isModalOpen: false,
+      day_index: 0,
     };
   }
+
+  componentDidMount() {
+    this.setState({
+      // grab the current day from the url parameter
+      day_index: this.props.match.params.current_day,
+    });
+  }
+
   render() {
+    const days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
     return (
       <div>
-        <h1>HELLLO WEEKLY VIEW</h1>
+        <h1>HELLLO TODAY'S VIEW</h1>
         {/* add new task form (modal popup) */}
         <button
           type="button"
@@ -46,7 +63,10 @@ export default class Home extends React.Component {
             }}
           />
         )}
-        <WeeklyAgenda />
+
+        {/* ONLY SHOW 1 DAY'S (TODAY'S) TASKS */}
+        <h1 className="header_day">{days[this.state.day_index]}</h1>
+        <TaskGroup filter={days[this.state.day_index]} />
       </div>
     );
   }

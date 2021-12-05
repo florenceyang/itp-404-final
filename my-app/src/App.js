@@ -1,15 +1,15 @@
 import "bootstrap/dist/css/bootstrap.css";
-// new react-router-dom uses Routes instead of Switch
-// https://stackoverflow.com/questions/63124161/attempted-import-error-switch-is-not-exported-from-react-router-dom
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from "./Navigation";
 import "./App.css";
 import Home from "./Home";
 import About from "./About";
 import "./styles.css";
 import React from "react";
-import CreateTaskModal from "./CreateTaskModal";
-import WeeklyAgenda from "./WeeklyAgenda";
+// use for notifications
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Today from "./Today";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -27,45 +27,14 @@ export default class App extends React.Component {
           <Navigation />
 
           <div className="mt-3">
-            <Routes>
-              <Route path="/about" element={About} />
-              <Route path="/" element={Home} />
-            </Routes>
+            <Switch>
+              <Route path="/today/:current_day" component={Today} />
+              <Route path="/about" component={About} />
+              <Route path="/" component={Home} />
+            </Switch>
           </div>
+          <ToastContainer />
         </Router>
-        <h1>HELLLO WEEKLY VIEW</h1>
-
-        {/* add new task form (modal popup) */}
-        <button
-          type="button"
-          onClick={() => {
-            this.setState({ isModalOpen: true });
-          }}
-        >
-          New Post
-        </button>
-        {this.state.isModalOpen && (
-          <CreateTaskModal
-            title="Add a New Task"
-            // function as a prop = render prop
-            body={() => {
-              return (
-                <div>
-                  <p>Modal body text goes here </p>
-                  <p>More html inside the body function </p>
-                </div>
-              );
-            }}
-            // pass closeModal function in so that buttons in Modal.js can call this function to close/hide the modal
-            // control rendering thru react instead of html javascript
-            onCloseModal={() => {
-              this.setState({ isModalOpen: false });
-              window.location.reload(false); // refresh to see new API updates
-            }}
-          />
-        )}
-
-        <WeeklyAgenda />
       </div>
     );
   }

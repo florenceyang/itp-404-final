@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Navigation() {
   return (
@@ -10,14 +10,23 @@ export default function Navigation() {
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link to="/" className="nav-link">
+              <NavLink exact={true} to="/" className="nav-link">
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link to="/about" className="nav-link">
+              <NavLink
+                exact
+                to={`/today/${new Date().getDay()}`}
+                className="nav-link"
+              >
+                Today's Tasks
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink exact to="/about" className="nav-link">
                 About
-              </Link>
+              </NavLink>
             </li>
           </ul>
           {/* {!isLoading && (
