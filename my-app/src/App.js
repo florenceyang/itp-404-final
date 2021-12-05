@@ -16,7 +16,6 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      numTasksDone: 0,
       isModalOpen: false,
     };
   }
@@ -61,6 +60,7 @@ export default class App extends React.Component {
             // control rendering thru react instead of html javascript
             onCloseModal={() => {
               this.setState({ isModalOpen: false });
+              window.location.reload(false); // refresh to see new API updates
             }}
           />
         )}

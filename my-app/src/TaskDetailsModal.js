@@ -73,6 +73,25 @@ export default class TaskDetailsModal extends React.Component {
       });
   }
 
+  deleteTask() {
+    const isDeleteConfirmed = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+
+    if (!isDeleteConfirmed) {
+      // don't want to delete
+      return;
+    }
+
+    const id = this.props.task.id;
+    fetch(`https://itp404-final-server.herokuapp.com/api/tasks/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      toast.success(`Task "${this.props.task.title}" was deleted`);
+      this.props.onCloseModal();
+    });
+  }
+
   render() {
     // from public/index.html
     const modalContainer = document.getElementById("modal-container");
@@ -202,7 +221,9 @@ export default class TaskDetailsModal extends React.Component {
                   <button
                     type="button"
                     className="btn btn-danger"
-                    onClick={this.props.onCloseModal}
+                    onClick={() => {
+                      this.deleteTask();
+                    }}
                   >
                     Delete Task
                   </button>

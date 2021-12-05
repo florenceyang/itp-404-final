@@ -62,6 +62,7 @@ export default class CheckListItem extends React.Component {
             // control rendering thru react instead of html javascript
             onCloseModal={() => {
               this.setState({ isModalOpen: false });
+              window.location.reload(false); // refresh to see new API updates
             }}
           />
         )}
