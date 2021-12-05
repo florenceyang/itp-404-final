@@ -4,36 +4,27 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./styles.css";
 import TaskGroup from "./TaskGroup";
 
-export default class Today extends React.Component {
+export default class UrgentTasks extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isModalOpen: false,
-      day_index: 0,
+      bookmark_filter: "",
     };
   }
 
   componentDidMount() {
     this.setState({
       // grab the current day from the url parameter
-      day_index: this.props.match.params.current_day,
+      bookmark_filter: this.props.match.params.filter,
     });
   }
 
   render() {
-    const days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
     return (
       <div>
-        <h1>HELLLO TODAY'S VIEW</h1>
+        <h1>URGENT TASKS VIEW</h1>
         {/* add new task form (modal popup) */}
         <button
           type="button"
@@ -58,8 +49,8 @@ export default class Today extends React.Component {
         )}
 
         {/* ONLY SHOW 1 DAY'S (TODAY'S) TASKS */}
-        <h1 className="header_day">{days[this.state.day_index]}</h1>
-        <TaskGroup filter={"to_do_day=" + days[this.state.day_index]} />
+        <h1 className="header_day">Urgent Tasks</h1>
+        <TaskGroup filter="is_bookmarked=true" />
       </div>
     );
   }

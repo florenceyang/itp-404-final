@@ -24,6 +24,11 @@ export default function Navigation() {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink exact to={`/urgent/`} className="nav-link">
+                Urgent Tasks
+              </NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink exact to="/about" className="nav-link">
                 About
               </NavLink>

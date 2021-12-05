@@ -13,9 +13,7 @@ export default class TaskGroup extends React.Component {
   componentDidMount() {
     const filter = this.props.filter;
     // GET REQUEST
-    fetch(
-      `https://itp404-final-server.herokuapp.com/api/tasks?to_do_day=${filter}`
-    )
+    fetch(`https://itp404-final-server.herokuapp.com/api/tasks?${filter}`)
       .then((response) => {
         return response.json();
       })

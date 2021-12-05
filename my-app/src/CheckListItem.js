@@ -1,7 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheckCircle,
+  faInfoCircle,
+  faExclamation,
+} from "@fortawesome/free-solid-svg-icons";
 import TaskDetailsModal from "./TaskDetailsModal";
 
 export default class CheckListItem extends React.Component {
@@ -30,9 +33,23 @@ export default class CheckListItem extends React.Component {
               console.log("checked: ", this.state.checked);
             }}
           />
+          {/* indicate if task is urgent (bookmarked) or not */}
+          {this.props.task.is_bookmarked ? (
+            <FontAwesomeIcon
+              icon={faExclamation}
+              color={!this.state.checked ? "red" : notDoneColor}
+              size={"2x"}
+              onClick={() => {
+                this.setState({ isModalOpen: true });
+              }}
+            />
+          ) : (
+            ""
+          )}
           <span className={"task_title " + (this.state.checked ? "slash" : "")}>
             {this.props.task.title}
           </span>
+
           <FontAwesomeIcon
             className="info_button"
             icon={faInfoCircle}

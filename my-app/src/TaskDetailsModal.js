@@ -84,6 +84,7 @@ export default class TaskDetailsModal extends React.Component {
     }
 
     const id = this.props.task.id;
+    // DELETE REQUEST
     fetch(`https://itp404-final-server.herokuapp.com/api/tasks/${id}`, {
       method: "DELETE",
     }).then(() => {

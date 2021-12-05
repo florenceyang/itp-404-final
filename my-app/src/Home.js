@@ -19,11 +19,12 @@ export default class Home extends React.Component {
         {/* add new task form (modal popup) */}
         <button
           type="button"
+          className="btn btn-success"
           onClick={() => {
             this.setState({ isModalOpen: true });
           }}
         >
-          New Post
+          Add Task
         </button>
         {this.state.isModalOpen && (
           <CreateTaskModal

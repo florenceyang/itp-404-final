@@ -10,6 +10,7 @@ import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Today from "./Today";
+import UrgentTasks from "./UrgentTasks";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ export default class App extends React.Component {
           <div className="mt-3">
             <Switch>
               <Route path="/today/:current_day" component={Today} />
+              <Route path="/urgent" component={UrgentTasks} />
               <Route path="/about" component={About} />
               <Route path="/" component={Home} />
             </Switch>
