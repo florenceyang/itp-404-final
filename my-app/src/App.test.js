@@ -1,13 +1,9 @@
-import { render, screen } from "@testing-library/react";
-import App from "./App";
-import TaskGroup from "./TaskGroup";
+import { render } from "@testing-library/react";
 import Today from "./Today";
-import { createMemoryHistory } from "history";
 import WeeklyAgenda from "./WeeklyAgenda";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Home from "./Home";
 import CheckListItem from "./CheckListItem";
-import TaskDetailsModal from "./TaskDetailsModal";
 import Tomorrow from "./Tomorrow";
 import UrgentTasks from "./UrgentTasks";
 import Navigation from "./Navigation";
@@ -23,31 +19,6 @@ test("render all 7 days in the weekly view", () => {
   expect(getByTestId("week-header-5").innerHTML).toBe("Saturday");
   expect(getByTestId("week-header-6").innerHTML).toBe("Sunday");
 });
-// test("render Tuesday in the weekly view", () => {
-//   const { getByTestId } = render(<WeeklyAgenda />);
-
-//   expect(getByTestId("week-header-1").innerHTML).toBe("Tuesday");
-// });
-// test("render Wednesday in the weekly view", () => {
-//   const { getByTestId } = render(<WeeklyAgenda />);
-
-// });
-// test("render Thursday in the weekly view", () => {
-//   const { getByTestId } = render(<WeeklyAgenda />);
-
-// });
-// test("render Friday in the weekly view", () => {
-//   const { getByTestId } = render(<WeeklyAgenda />);
-
-// });
-// test("render Saturday in the weekly view", () => {
-//   const { getByTestId } = render(<WeeklyAgenda />);
-
-// });
-// test("render Tuesday in the weekly view", () => {
-//   const { getByTestId } = render(<WeeklyAgenda />);
-
-// });
 
 test("calculating the correct day for today", () => {
   const days = [
