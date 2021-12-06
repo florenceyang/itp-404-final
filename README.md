@@ -1,5 +1,6 @@
-# itp-404-final
-planner react app 
+# itp-404-final: ✨Plan It✨
+
+Deployed app: https://florence-404-final.surge.sh/
 
 
 tests output:
