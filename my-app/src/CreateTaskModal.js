@@ -32,7 +32,11 @@ export default class CreateTaskModal extends React.Component {
   }
 
   toggleUrgentCheck(event) {
-    this.setState({ is_urgent: event.target.checked });
+    this.setState({
+      is_urgent: event.target.checked,
+      // referenced for getting timestamp: https://hdtuto.com/article/react-js-get-current-date-and-time-example
+      time_bookmarked: !this.state.is_urgent ? Date().toLocaleString() : "",
+    });
   }
 
   validateForm(event) {
@@ -74,8 +78,7 @@ export default class CreateTaskModal extends React.Component {
           title: this.state.title,
           body: this.state.body,
           is_bookmarked: this.state.is_urgent,
-          // referenced for getting timestamp: https://hdtuto.com/article/react-js-get-current-date-and-time-example
-          time_bookmarked: this.state.is_urgent ? Date().toLocaleString() : "",
+          time_bookmarked: this.state.time_bookmarked,
           to_do_day: this.state.to_do_day,
         }),
         headers: {

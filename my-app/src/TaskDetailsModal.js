@@ -42,7 +42,10 @@ export default class TaskDetailsModal extends React.Component {
     this.setState({ to_do_day: event.target.value });
   }
   toggleUrgentCheck(event) {
-    this.setState({ is_urgent: event.target.checked });
+    this.setState({
+      is_urgent: event.target.checked,
+      time_bookmarked: !this.state.is_urgent ? Date().toLocaleString() : "",
+    });
   }
 
   validateForm(event) {
@@ -84,7 +87,7 @@ export default class TaskDetailsModal extends React.Component {
           title: this.state.title,
           body: this.state.body,
           is_bookmarked: this.state.is_urgent,
-          time_bookmarked: this.state.is_urgent ? Date().toLocaleString() : "",
+          time_bookmarked: this.state.time_bookmarked,
           to_do_day: this.state.to_do_day,
         }),
         headers: {
@@ -150,6 +153,7 @@ export default class TaskDetailsModal extends React.Component {
             <div className="modal-body">
               {/* either show the edit task form or the task details in the modal */}
               {this.state.is_editing ? (
+                // referenced for form validation: https://getbootstrap.com/docs/5.1/forms/validation/
                 <form
                   onSubmit={(event) => {
                     this.handleSubmit(event);
