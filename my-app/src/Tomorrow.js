@@ -49,9 +49,12 @@ export default class Tomorrow extends React.Component {
     ];
     return (
       <div>
-        <h1 className="page_header">🔮 Tomorrow looks like:</h1>
+        <h1 className="page_header" data-testid="tomorrow-pg-header">
+          🔮 Tomorrow looks like:
+        </h1>
         {/* add new task form (modal popup) */}
         <button
+          data-testid="add-task-button"
           type="button"
           className="btn btn-success add_button"
           onClick={() => {
@@ -75,7 +78,9 @@ export default class Tomorrow extends React.Component {
         )}
 
         {/* ONLY SHOW 1 DAY'S (TODAY'S) TASKS */}
-        <h1 className="header_day">{tomorrow_days[this.state.day_index]}</h1>
+        <h1 className="header_day" data-testid="tomorrow-header">
+          {tomorrow_days[this.state.day_index]}
+        </h1>
         <TaskGroup
           filter={"to_do_day=" + tomorrow_days[this.state.day_index]}
         />

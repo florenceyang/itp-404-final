@@ -25,6 +25,7 @@ export default class CheckListItem extends React.Component {
       <>
         <li className="task">
           <FontAwesomeIcon
+            data-testid="checkbox-icon"
             icon={faCheckCircle}
             color={this.state.checked ? doneColor : notDoneColor}
             size={size}
@@ -36,6 +37,7 @@ export default class CheckListItem extends React.Component {
           {/* indicate if task is urgent (bookmarked) or not */}
           {this.props.task.is_bookmarked ? (
             <FontAwesomeIcon
+              data-testid="urgent-icon"
               icon={faExclamation}
               color={!this.state.checked ? "red" : notDoneColor}
               size={"2x"}
@@ -46,11 +48,15 @@ export default class CheckListItem extends React.Component {
           ) : (
             ""
           )}
-          <span className={"task_title " + (this.state.checked ? "slash" : "")}>
+          <span
+            className={"task_title " + (this.state.checked ? "slash" : "")}
+            data-testid="task-title"
+          >
             {this.props.task.title}
           </span>
 
           <FontAwesomeIcon
+            data-testid="info-icon"
             className="info_button"
             icon={faInfoCircle}
             color={"#A0E0F3"}

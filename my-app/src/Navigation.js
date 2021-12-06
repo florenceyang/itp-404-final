@@ -10,7 +10,12 @@ export default function Navigation() {
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink exact={true} to="/" className="nav-link">
+              <NavLink
+                exact={true}
+                to="/"
+                className="nav-link"
+                data-testid="nav-link-name-0"
+              >
                 Home
               </NavLink>
             </li>
@@ -19,6 +24,7 @@ export default function Navigation() {
                 exact
                 to={`/today/${new Date().getDay()}`}
                 className="nav-link"
+                data-testid="nav-link-name-1"
               >
                 Today's Tasks
               </NavLink>
@@ -28,12 +34,18 @@ export default function Navigation() {
                 exact
                 to={`/tomorrow/${new Date().getDay()}`}
                 className="nav-link"
+                data-testid="nav-link-name-2"
               >
                 Tomorrow's Tasks
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink exact to={`/urgent/`} className="nav-link">
+              <NavLink
+                exact
+                to={`/urgent/`}
+                className="nav-link"
+                data-testid="nav-link-name-3"
+              >
                 Urgent Tasks
               </NavLink>
             </li>

@@ -45,9 +45,12 @@ export default class Today extends React.Component {
     ];
     return (
       <div>
-        <h1 className="page_header"> ✨ Today looks like:</h1>
+        <h1 className="page_header" data-testid="today-pg-header">
+          ✨ Today looks like:
+        </h1>
         {/* add new task form (modal popup) */}
         <button
+          data-testid="add-task-button"
           type="button"
           className="btn btn-success add_button"
           onClick={() => {
@@ -71,7 +74,9 @@ export default class Today extends React.Component {
         )}
 
         {/* ONLY SHOW 1 DAY'S (TODAY'S) TASKS */}
-        <h1 className="header_day">{days[this.state.day_index]}</h1>
+        <h1 className="header_day" data-testid="today-header">
+          {days[this.state.day_index]}
+        </h1>
         <TaskGroup filter={"to_do_day=" + days[this.state.day_index]} />
       </div>
     );

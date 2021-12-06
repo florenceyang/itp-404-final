@@ -10,24 +10,22 @@ export default class UrgentTasks extends React.Component {
 
     this.state = {
       isModalOpen: false,
-      bookmark_filter: "",
     };
   }
 
   componentDidMount() {
-    this.setState({
-      // grab the current day from the url parameter
-      bookmark_filter: this.props.match.params.filter,
-    });
     document.title = "Urgent Tasks!";
   }
 
   render() {
     return (
       <div>
-        <h1 className="page_header">🚨 Here's what's urgent!!</h1>
+        <h1 className="page_header" data-testid="urgent-pg-header">
+          🚨 Here's what's urgent!!
+        </h1>
         {/* add new task form (modal popup) */}
         <button
+          data-testid="add-task-button"
           type="button"
           className="btn btn-success add_button"
           onClick={() => {
