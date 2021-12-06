@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@500&display=swap");
+
 .App {
   font-family: sans-serif;
   text-align: center;
@@ -30,9 +32,23 @@
 
 .header_day {
   font-weight: bold;
+  color: darksalmon;
 }
 
 a.active {
   text-decoration: underline;
   background-color: #eee;
+}
+
+.add_button {
+  margin: 20px;
+}
+
+.page_header {
+  color: orange;
+  font-family: "Readex Pro", sans-serif;
+}
+
+.brand_title {
+  font-family: "Readex Pro", sans-serif;
 }

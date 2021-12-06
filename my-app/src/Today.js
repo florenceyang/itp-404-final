@@ -45,11 +45,11 @@ export default class Today extends React.Component {
     ];
     return (
       <div>
-        <h1>HELLLO TODAY'S VIEW</h1>
+        <h1 className="page_header"> ✨ Today looks like:</h1>
         {/* add new task form (modal popup) */}
         <button
           type="button"
-          className="btn btn-success"
+          className="btn btn-success add_button"
           onClick={() => {
             this.setState({ isModalOpen: true });
           }}

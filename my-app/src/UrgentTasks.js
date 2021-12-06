@@ -25,11 +25,11 @@ export default class UrgentTasks extends React.Component {
   render() {
     return (
       <div>
-        <h1>URGENT TASKS VIEW</h1>
+        <h1 className="page_header">🚨 Here's what's urgent!!</h1>
         {/* add new task form (modal popup) */}
         <button
           type="button"
-          className="btn btn-success"
+          className="btn btn-success add_button"
           onClick={() => {
             this.setState({ isModalOpen: true });
           }}

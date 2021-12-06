@@ -19,11 +19,11 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <h1>HELLLO WEEKLY VIEW</h1>
+        <h1 className="page_header">🚀 Your week looks like: </h1>
         {/* add new task form (modal popup) */}
         <button
           type="button"
-          className="btn btn-success"
+          className="btn btn-success add_button"
           onClick={() => {
             this.setState({ isModalOpen: true });
           }}
