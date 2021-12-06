@@ -45,35 +45,64 @@ export default class TaskDetailsModal extends React.Component {
     this.setState({ is_urgent: event.target.checked });
   }
 
+  validateForm(event) {
+    const form = document.getElementById("validate-form");
+    form.classList.add("was-validated");
+
+    // all required fields are populated
+    if (this.state.title.length > 0 && this.state.to_do_day.length > 0) {
+      console.log("title and day are filled");
+      return true;
+    }
+    // no title
+    if (this.state.title.length === 0) {
+      console.log("empty title");
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }
+    // no day selected
+    if (this.state.to_do_day.length === 0) {
+      console.log("empty day selection");
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    const id = this.props.task.id;
-    // PUT REQUEST
-    fetch(`https://itp404-final-server.herokuapp.com/api/tasks/${id}`, {
-      method: "PUT",
+    let is_valid = this.validateForm(event);
 
-      body: JSON.stringify({
-        title: this.state.title,
-        body: this.state.body,
-        is_bookmarked: this.state.is_urgent,
-        time_bookmarked: this.state.is_urgent ? Date().toLocaleString() : "",
-        to_do_day: this.state.to_do_day,
-      }),
-      headers: {
-        // telling it that we're sending JSON in this request
-        "Content-type": "application/json",
-      },
-    })
-      .then((response) => {
-        // receive what we posted/inserted back in object form
-        return response.json();
+    if (is_valid) {
+      const id = this.props.task.id;
+      // PUT REQUEST
+      fetch(`https://itp404-final-server.herokuapp.com/api/tasks/${id}`, {
+        method: "PUT",
+
+        body: JSON.stringify({
+          title: this.state.title,
+          body: this.state.body,
+          is_bookmarked: this.state.is_urgent,
+          time_bookmarked: this.state.is_urgent ? Date().toLocaleString() : "",
+          to_do_day: this.state.to_do_day,
+        }),
+        headers: {
+          // telling it that we're sending JSON in this request
+          "Content-type": "application/json",
+        },
       })
-      .then((json) => {
-        console.log(json);
-        toast.success(`Task "${json.title} was successfully updated`);
-        // go back to details view
-        this.setState({ is_editing: false });
-      });
+        .then((response) => {
+          // receive what we posted/inserted back in object form
+          return response.json();
+        })
+        .then((json) => {
+          console.log(json);
+          toast.success(`Task "${json.title} was successfully updated`);
+          // go back to details view
+          this.setState({ is_editing: false });
+        });
+    }
   }
 
   deleteTask() {
@@ -125,6 +154,8 @@ export default class TaskDetailsModal extends React.Component {
                   onSubmit={(event) => {
                     this.handleSubmit(event);
                   }}
+                  noValidate
+                  id="validate-form"
                 >
                   <div className="my-3">
                     <label htmlFor="title" className="form-label">
@@ -135,9 +166,15 @@ export default class TaskDetailsModal extends React.Component {
                       className="form-control"
                       value={this.state.title}
                       onChange={this.handleTitleChange}
+                      required
                     />
+                    <div className="valid-feedback">Looks good!</div>
+                    <div className="invalid-feedback">
+                      Please give this task a title.
+                    </div>
                   </div>
                   <div className="my-3">
+                    {/* optional field */}
                     <label htmlFor="body" className="form-label">
                       Task Description
                     </label>
@@ -159,8 +196,9 @@ export default class TaskDetailsModal extends React.Component {
                       id="day_select"
                       value={this.state.to_do_day}
                       onChange={this.handleDaySelect}
+                      required
                     >
-                      <option>--Select a Day--</option>
+                      <option value="">--Select a Day--</option>
                       <option>Monday</option>
                       <option>Tuesday</option>
                       <option>Wednesday</option>
@@ -169,6 +207,8 @@ export default class TaskDetailsModal extends React.Component {
                       <option>Saturday</option>
                       <option>Sunday</option>
                     </select>
+                    <div className="valid-feedback">Sounds good!</div>
+                    <div className="invalid-feedback">Please select a day.</div>
                   </div>
                   <div className="form-check mb-3">
                     <input
